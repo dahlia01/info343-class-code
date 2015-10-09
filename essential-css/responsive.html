@@ -10,6 +10,8 @@
         Note that Bootstrap already includes normalize.css, so we won't need to include it here
  -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!-- Note: can use this via @import in css instead of using a link tag-->
+
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="icon" href="img/page-icon.png">
     </head>
@@ -19,6 +21,43 @@
             <p>An amazing new writing technology. No batteries required.</p>
         </header>
 
+        <!--<p class="alert alert-warning">This is a warning</p>-->
+
+        <section>
+            <div class="container"> <!--has max width property set, so conent doesn't stretch across large screens (halts at a specific size) -->
+                <div class="row">
+                    <div class="col-md-4"> <!-- md refers to medium sized screens and 4 means this gird element will take up 4 of the 12 units bootstrap defines -->
+
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 528.899 528.899"><path d="M328.883 89.125l107.59 107.59-272.34 272.34-107.53-107.59 272.28-272.34zm189.23-25.948l-47.98-47.98c-18.544-18.544-48.654-18.544-67.26 0l-45.96 45.96 107.59 107.59 53.61-53.61c14.382-14.384 14.382-37.578 0-51.96zM.3 512.69c-1.958 8.812 5.998 16.708 14.81 14.565l119.892-29.07-107.53-107.588L.3 512.69z"/></svg>
+                         <h2>Writes Anywhere, Anytime</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut consectetur, at earum, quis, tempora officiis iste commodi laborum cum repudiandae error. Ut laborum possimus enim nobis, qui voluptatem quo rerum.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <i class="fa fa-battery-quarter"></i>
+                        <h2>Stays as Long as You Need</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut consectetur, at earum, quis, tempora officiis iste commodi laborum cum repudiandae error. Ut laborum possimus enim nobis, qui voluptatem quo rerum.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h2>Erases Without a Trace</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut consectetur, at earum, quis, tempora officiis iste commodi laborum cum repudiandae error. Ut laborum possimus enim nobis, qui voluptatem quo rerum.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bunny">
+            <div class="container">
+                <img src="img/bunny.jpg" alt="cute bunny">
+                <aside> <!--new html 5 element for aside quotes -->
+                    Bunnies love our pencils too! They love to chew on them. Yum, Yum, Yum!
+                </aside>
+                <p>This is some other text.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>Hello this is the footer</p>
+        </footer>
         <!-- 
         use Bootstrap to add a responsive multi-column layout
         -->
