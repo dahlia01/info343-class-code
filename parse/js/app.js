@@ -2,7 +2,10 @@
     script for the index.html file
 */
 Parse.initialize("rIyJWkPEIG5e14WR8Wc8VwjideLsr4ppUA0KwMqZ", "3i2xvpOxTM8mz3QheAyYVnefkw9cShSxtrUNHPpF");
-//Parse.initialize("HwGkNK09YRPy3ZajicPwpZMfX9vqCyc4ghFl2eh7", "14BQF3zAPvaOR1sh6aEzXX5Wk1LTnBFQopjr1Rbj");
+
+//Parse.initialize("rnPVLff4nz9OW4qu9GnkdD18TV4AzzxfLducfGQh", "x62CpPBIqQwvj2nW1eRSo50VWvUMxFSoyJG8NuVB"); // K
+
+//Parse.initialize("HwGkNK09YRPy3ZajicPwpZMfX9vqCyc4ghFl2eh7", "14BQF3zAPvaOR1sh6aEzXX5Wk1LTnBFQopjr1Rbj"); // michelle
 
 $(function() {
     'use strict';
@@ -12,9 +15,13 @@ $(function() {
     /* new query that will return all tasks order by createdAt */
     var tasksQuery = new Parse.Query(Task);
     tasksQuery.ascending('createdAt');
+    tasksQuery.notEqualTo('done', true);
 
     // reference to the task list element
     var tasksList = $('#tasks-list');
+
+    //referece to our rating element
+    var ratingElem = $('#rating');
 
     // reference to the eroor message alert
     var errorMessage = $('#error-message');
@@ -52,28 +59,58 @@ $(function() {
     function renderTasks() {
         tasksList.empty();
         tasks.forEach(function(task) {
-            $(document.createElement('li'))
+            var li = $(document.createElement('li'))
                 .text(task.get('title'))
-                .appendTo(tasksList);
+                .addClass(task.get('done') ? 'completed-tasks' : '')
+                .appendTo(tasksList)
+                .click(function() {
+                    task.set('done', !task.get('done')) // toggle the done property between true and false
+                    task.save().then(renderTasks, displayError); // call render and not fetchTasks because we don't want to get them from the server again
+                });
+
+            $(document.createElement('span'))
+                .raty({
+                    readOnly: true,
+                    score: (task.get('rating') || 1), //default rating of 1 star
+                    hints: ['crap', 'awful', 'okay', 'nice', 'awesome']
+                })  //takes options object
+                .appendTo(li);
         });
     }
 
+    function showMessage(message) {
+        message = message || 'Hello'; // set message to message if it has a value, and hello if it doesn't
+        alert(message);
+    }
+
+    /*showMessage();
+    showMessage('HI');
+
     $('#new-task-form').submit(function(evt) {
-        evt.preventDefault();
+        evt.preventDefault();*/
+
+
 
         var titleInput = $(this).find('[name="title"]');
         var title = titleInput.val();
         var task = new Task();
         task.set('title', title);
+
+        task.set('rating', ratingElem.raty('score'));
+
+
         task.save().then(fetchTasks, displayError).then(function() {
             titleInput.val(''); // clears the title input
+            ratingElem.raty('set', {});
         });
 
         return false;
     });
 
+    ratingElem.raty();
+
     // go and fetch tasks from Parse
     fetchTasks();
 
-    window.setInterval(fetchTasks, 3000); //repeatedly call function every 3 seconds
+    window.setInterval(fetchTasks, 10000); //repeatedly call function every 3 seconds
 });
