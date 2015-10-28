@@ -9,31 +9,36 @@
         <link rel="icon" href="img/angular.ico">
         <title>Angular Task List</title>
 
-        <!-- angular script file -->
+        <!-- angular script file --> <!-- when using angular, need to load script files before rendering any html so angular can replace elements-->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 
         <!-- our script file -->
         <script src="js/tasks.js"></script>
     </head>
     <body>
-        <main class="container">
-            <section>
+        <main class="container" ng-app="Tasks" ng-controller="TasksController">
+            <section ng-submit="addTask()"> <!--call the addTask function whenever form is submitted (person hits submit button or enter key within the form -->
                 <h1>My Angular Task List</h1>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control"
+                        <input type="text" class="form-control" ng-model="newTask.title"
                             autofocus placeholder="title for new task">
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary">Add Task</button>
+                        <button type="submit" class="btn btn-primary">Add Task</button>
                     </div>
                 </form>                
             </section>
 
             <section>
-                <ul></ul>
+                <ul>
+                    <li ng-repeat="task in tasks"
+                            ng-click="toggleDone(task)"
+                            ng-class="{'completed-task': task.done}"> <!-- if task.done is true than add the style class "completed-task" to the li element -->
+                        {{task.title}}
+                    </li> <!--repeat li for each task in tasks array -->
+                </ul>
             </section>
         </main>
-
     </body>
 </html>
