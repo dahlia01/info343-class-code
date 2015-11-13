@@ -38,8 +38,12 @@
                            placeholder="new task title"
                            autofocus
                            required/>
+
+                    <!-- second style class is added purely so you can test it  (could also use an id) -->
                     <p class="validation-error title-required-error"
                        ng-if="newTaskForm.titleInp.$dirty && newTaskForm.titleInp.$error.required">
+                        <!-- don't show error message unless it's dirty, so error msg doesn't show up right away,
+                        before user has done anything -->
                         please enter a task title
                     </p>
 
